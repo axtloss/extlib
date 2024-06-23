@@ -1,0 +1,9 @@
+prefix=@prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: extlib
+Description: extension for stdlib
+Version: 1.0.0
+Libs: -L${libdir} -lextlib
+Cflags: -I${includedir}/extlib
