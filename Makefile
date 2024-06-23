@@ -1,6 +1,12 @@
-CC = gcc
+.POSIX:
+
+CC = cc
 CFLAGS = -g
 PREFIX = /usr
+
+TESTCFLAGS!=pkg-config --cflags extlib
+TESTCFLAGS+=-g -fsanitize=undefined,address
+TESTLDFLAGS!=pkg-config --libs extlib
 
 extlib: extlib.o extstring.o
 	$(CC) src/extlib.o src/extstring.o $(CFLAGS) -shared -fPIC -o libextlib.so
@@ -12,19 +18,19 @@ extlib.pc: extlib.pc.in
 	rm extlib.pc.tmp
 
 extlib.o:
-	cc src/extlib.c $(CFLAGS) -c -fPIC -o src/extlib.o
+	$(CC) src/extlib.c $(CFLAGS) -c -fPIC -o src/extlib.o
 
 extstring.o:
-	cc src/extstring.c $(CFLAGS) -c -fPIC -o src/extstring.o
+	$(CC) src/extstring.c $(CFLAGS) -c -fPIC -o src/extstring.o
 
 clean:
 	rm -r src/extlib.o src/exststring.o libextlib.so extlib.pc test
 
 install: extlib extlib.pc
-	install -Dm655 -t $(PREFIX)/lib/ libextlib.so
-	install -Dm655 -t $(PREFIX)/include/ src/extlib.h
-	install -Dm655 -t $(PREFIX)/share/pkgconfig/ extlib.pc
+	install -Dm655 libextlib.so $(PREFIX)/lib/
+	install -Dm655 src/extlib.h $(PREFIX)/include/
+	install -Dm655 extlib.pc $(PREFIX)/share/pkgconfig/
 
 test:
-	$(CC)  -g -lextlib -I/usr/include/extlib -fsanitize=undefined,address test.c -o test
+	$(CC) $(TESTCFLAGS) $(TESTLDFLAGS) test.c -o test
 	./test
