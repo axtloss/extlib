@@ -31,6 +31,7 @@ install: extlib extlib.pc
 	install -Dm655 src/extlib.h $(PREFIX)/include/
 	install -Dm655 extlib.pc $(PREFIX)/share/pkgconfig/
 
-test:
-	$(CC) $(TESTCFLAGS) $(TESTLDFLAGS) test.c -o test
-	./test
+test: FORCE
+	cd tests && make test
+
+FORCE: ; # PHONY is a non standard extension

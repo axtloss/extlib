@@ -27,10 +27,11 @@
 #undef malloc
 
 void
-free_secure(void *__ptr, size_t ptrlen)
+free_secure(void **__ptr, size_t ptrlen)
 {
-  memset (__ptr, 0, ptrlen);
-  free (__ptr);
+  memset (*__ptr, 0, ptrlen);
+  free (*__ptr);
+  *__ptr = NULL;
   return;
 }
 
@@ -40,6 +41,16 @@ malloc_secure (size_t len)
   void *mem = malloc (len);
   memset (mem, 0, len);
   return mem;
+}
+
+int
+memvcmp (void *str,
+	 char val,
+	 size_t n)
+{
+  char str2[n];
+  memset (str2, val, n);
+  return memcmp (str, str2, n);
 }
 
 void
@@ -54,5 +65,6 @@ fcopy(FILE *f1, FILE *f2)
       fprintf (stderr, "Failed to copy data");
       return;
     }
+    fflush (f2);
   }
 }

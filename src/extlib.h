@@ -25,13 +25,17 @@
 #define malloc(x) error - use malloc_secure
 
 /// Automatically zero out a pointer before freeing it
-void free_secure (void *__ptr, size_t ptrlen);
+void free_secure (void **__ptr, size_t ptrlen);
 
 /// Automatically initialise the allocated memory with zeros
 void *malloc_secure (size_t len);
 
 /// Copy the data of one filestream to another
 void fcopy(FILE *f1, FILE *f2);
+
+/// Compare the first n bytes of a memory area str to the value val.
+/// Returns 0 if the values the same, any other value if they are not the same.
+int memvcmp (void *str, char val, size_t n);
 
 /// Convert a string to lowercase
 char *strlwr(char *s);
