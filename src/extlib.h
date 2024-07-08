@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#ifdef USE_SECURE_MEM
 #define free(x) error - use free_secure
 #define malloc(x) error - use malloc_secure
 
@@ -29,9 +30,15 @@ void free_secure (void **__ptr, size_t ptrlen);
 
 /// Automatically initialise the allocated memory with zeros
 void *malloc_secure (size_t len);
+#endif
 
-/// Copy the data of one filestream to another
+/// Copy the data of one filestream to another */
 void fcopy(FILE *f1, FILE *f2);
+
+#if (_XOPEN_SOURCE == 500)
+/// Recursively remove a directory pathname.
+int rrmdir(char *pathname);
+#endif
 
 /// Compare the first n bytes of a memory area str to the value val.
 /// Returns 0 if the values the same, any other value if they are not the same.
@@ -44,7 +51,8 @@ char *strlwr(char *s);
 char *strupr(char *s);
 
 /// Trim spaces from a string
-char *trim (char *s);
+char *trim (char *s, int *rem_front, int *rem_back);
 
 /// Match string old and replace it with string replace
 char *replace_str (char *s, char *old, char *replace);
+

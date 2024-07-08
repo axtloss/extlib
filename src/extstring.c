@@ -17,6 +17,7 @@
  * SPDX-License-Identifier: LGPL-3.0-only
  */
 
+#define USE_SECURE_MEM
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
@@ -50,20 +51,24 @@ strupr (char *s)
 }
 
 char *
-trim (char *s)
+trim (char *s, int *rem_front, int *rem_back)
 {
   char *result = strdup (s);
   char *end;
 
-  while (isspace ((unsigned char)*result))
+  while (isspace ((unsigned char)*result)) {
     result++;
+    if (rem_front) *rem_front += 1;
+  }
 
   if (*result == 0)
     return result;
 
   end = result + strlen (result) - 1;
-  while (end > result && isspace ((unsigned char)*end))
+  while (end > result && isspace ((unsigned char)*end)) {
     end--;
+    if (rem_back) *rem_back +=1;
+  }
 
   end[1] = '\0';
 

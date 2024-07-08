@@ -17,11 +17,16 @@
  * SPDX-License-Identifier: LGPL-3.0-only
  */
 
-#include "extlib.h"
 
+#define _XOPEN_SOURCE 500
+#define USE_SECURE_MEM
+#include <ftw.h>
+
+#include "extlib.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
 
 #undef free
 #undef malloc
@@ -67,4 +72,23 @@ fcopy(FILE *f1, FILE *f2)
     }
     fflush (f2);
   }
+}
+
+int
+rmfile(const char *fpath,
+       const struct stat *sb,
+       int typeflag,
+       struct FTW *ftwbuf)
+{
+  int err = remove (fpath);
+  if (err < 0) return err;
+  return 0;
+}
+
+int
+rrmdir(char *pathname)
+{
+  int err = nftw (pathname, rmfile, 10, FTW_DEPTH|FTW_MOUNT|FTW_PHYS);
+  if (err < 0) return err;
+  return 0;
 }
