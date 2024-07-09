@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <sys/types.h>
+#define USE_SECURE_MEM
 #include "../src/extlib.h"
 
 int
@@ -50,6 +51,7 @@ test_fcopy()
 int
 test_strlwr_strupr ()
 {
+
   char *test_string = strdup ("hello");
   char *uppr_string = strupr (test_string);
   char *lower_string = strlwr (uppr_string);
@@ -69,12 +71,22 @@ test_strlwr_strupr ()
 int
 test_trim()
 {
+#undef free
   char *test_string = strdup ("\t\thi\t\t");
-  char *trimmed_string = trim (test_string);
+  int rem_front = 0;
+  int rem_back = 0;
+  char *trimmed_string = trim (test_string, &rem_front, &rem_back);
   if (strstr (trimmed_string, "\t") != NULL) {
+    free (trimmed_string-rem_front);
     free_secure ((void**)&test_string, strlen (test_string));
     return 1;
   }
+  if (rem_front != 2 && rem_back != 2) {
+    free (trimmed_string-rem_front);
+    free_secure ((void**)&test_string, strlen (test_string));
+    return 2;
+  }
+  free (trimmed_string-rem_front);
   free_secure ((void**)&test_string, strlen (test_string));
   return 0;
 }
