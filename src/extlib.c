@@ -43,8 +43,7 @@ free_secure(void **__ptr, size_t ptrlen)
 void *
 malloc_secure (size_t len)
 {
-  void *mem = malloc (len);
-  memset (mem, 0, len);
+  void *mem = calloc (0, len);
   return mem;
 }
 

@@ -23,11 +23,11 @@
 
 #ifdef USE_SECURE_MEM
 #define free(x) error - use free_secure
-#define malloc(x) error - use malloc_secure
 
 /// Automatically zero out a pointer before freeing it
 void free_secure (void **__ptr, size_t ptrlen);
 
+/// DEPRECATED: use calloc
 /// Automatically initialise the allocated memory with zeros
 void *malloc_secure (size_t len);
 #endif
