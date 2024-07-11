@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <stdint.h>
 
 #ifdef USE_SECURE_MEM
 #define free(x) error - use free_secure
@@ -31,6 +32,25 @@ void free_secure (void **__ptr, size_t ptrlen);
 /// Automatically initialise the allocated memory with zeros
 void *malloc_secure (size_t len);
 #endif
+
+#if (__STDC_WANT_LIB_EXT1__ == 1)
+#define RSIZE_MAX SIZE_MAX
+typedef int errno_t;
+typedef size_t rsize_t;
+
+typedef void (*constraint_handler_t) (const char *__restrict, void *__restrict, errno_t);
+/// Copy the value of c (converted to an unsigned char) into each of the first n
+/// characters of the object pointed to by s.
+/// Conforms to ISO/IEC 9899:2011 K.3.7.4.1
+errno_t memset_s (void *s, rsize_t max, int c, rsize_t n);
+
+constraint_handler_t set_constraint_handler_s (constraint_handler_t handler);
+void throw_constraint_handler_s (const char *restrict msg, errno_t error);
+_Noreturn void abort_handler_s (const char * __restrict, void * __restrict,
+				errno_t);
+void ignore_handler_s (const char *__restrict, void *__restrict, errno_t);
+#endif
+
 
 /// Copy the data of one filestream to another */
 void fcopy(FILE *f1, FILE *f2);

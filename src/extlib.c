@@ -20,13 +20,14 @@
 
 #define _XOPEN_SOURCE 500
 #define USE_SECURE_MEM
+#define __STDC_WANT_LIB_EXT1__ 1
 #include <ftw.h>
 
 #include "extlib.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
+#include <time.h>
 
 #undef free
 #undef malloc
@@ -34,7 +35,7 @@
 void
 free_secure(void **__ptr, size_t ptrlen)
 {
-  memset (*__ptr, 0, ptrlen);
+  memset_s (*__ptr, ptrlen+1, 0, ptrlen);
   free (*__ptr);
   *__ptr = NULL;
   return;
@@ -43,7 +44,7 @@ free_secure(void **__ptr, size_t ptrlen)
 void *
 malloc_secure (size_t len)
 {
-  void *mem = calloc (0, len);
+  void *mem = calloc (1, len);
   return mem;
 }
 
