@@ -1,0 +1,41 @@
+'\" t
+.\" Copyright 2024 axtlos (axtlos@disroot.org)
+.\"
+.\" SPDX-License-Identifier: BSD-3-Clause
+
+.TH strlwr 3 2024-07-14 "extlib"
+.SH NAME
+strlwr, strupr \- convert a string to upper/lowercase
+.SH LIBRARY
+extlib extended standard library
+.RI ( libextlib ", " \-lextlib )
+.SH SYNOPSIS
+.nf
+.B #include <extlib.h>
+.P
+.BI "char *strlwr (char *s);"
+.P
+.BI "char *strupr (char *s);"
+.P
+.fi
+.SH DESCRIPTION
+The
+.BR strlwr ()
+function converts
+.I *s
+to a lowercase version of itself.
+The
+.BR strupr ()
+function converts
+.I *s
+to an uppercase version of itself.
+In both functions
+.I *s
+will be consumed and cannot be used after the function completes.
+.fi
+.SH RETURN VALUE
+.BR strlwr ()
+and
+.BR strupr ()
+return the string in the appropriate case, the resulting string will have to be manually free'd.
+.\" SRC END

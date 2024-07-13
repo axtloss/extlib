@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
- * SPDX-License-Identifier: LGPL-3.0-only
+ * SPDX-License-Identifier: BSD-3-Clause
  */
 
 
@@ -58,20 +58,25 @@ memvcmp (void *str,
   return memcmp (str, str2, n);
 }
 
-void
-fcopy(FILE *f1, FILE *f2)
+size_t
+fcopy (FILE *src, FILE *dst)
 {
   char buffer[BUFSIZ];
-  size_t n;
+  size_t n, copied = 0;
+
+  if (src == NULL || dst == NULL)
+    return -1;
 
   while ((n = fread (buffer, sizeof (char), sizeof (buffer), f1)) > 0)
   {
     if (fwrite (buffer, sizeof (char), n, f2) != n) {
       fprintf (stderr, "Failed to copy data");
-      return;
+      return -1;
     }
     fflush (f2);
+    copied += n;
   }
+  return copied;
 }
 
 int

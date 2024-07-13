@@ -1,0 +1,34 @@
+'\" t
+.\" Copyright 2024 axtlos (axtlos@disroot.org)
+.\"
+.\" SPDX-License-Identifier: BSD-3-Clause
+
+.TH replace_str 3 2024-07-14 "extlib"
+.SH NAME
+replace_str \- replace a substring in a string
+.SH LIBRARY
+extlib extended standard library
+.RI ( libextlib ", " \-lextlib )
+.SH SYNOPSIS
+.nf
+.B #include <extlib.h>
+.P
+.BI "char *replace_str (char *s, char *old, char *replace);"
+.P
+.fi
+.SH DESCRIPTION
+The
+.BR replace_str ()
+function replaces any matches of
+.I *old
+in the string
+.I *s
+with the string
+.IR *replace .
+.fi
+.SH RETURN VALUE
+.BR replace_str ()
+returns a copy of
+.I *s
+with all the substrings replaced.
+.\" SRC END

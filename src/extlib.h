@@ -1,20 +1,5 @@
-/* extlib.h
- *
- * Copyright 2024 axtlos <axtlos@disroot.org>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, version 3.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
- *
- * SPDX-License-Identifier: LGPL-3.0-only
+/* extlib.c
+ * SPDX-License-Identifier: BSD-3-Clause
  */
 
 #include <stdlib.h>
@@ -52,8 +37,9 @@ void ignore_handler_s (const char *__restrict, void *__restrict, errno_t);
 #endif
 
 
-/// Copy the data of one filestream to another */
-void fcopy(FILE *f1, FILE *f2);
+/// Copy the data of one filestream to another
+/// Returns the amount of bytes copied.
+size_t fcopy(FILE *src, FILE *dst);
 
 #if (_XOPEN_SOURCE == 500)
 /// Recursively remove a directory pathname.
@@ -73,6 +59,6 @@ char *strupr(char *s);
 /// Trim spaces from a string
 char *trim (char *s, int *rem_front, int *rem_back);
 
-/// Match string old and replace it with string replace
+/// Match string s for old and replace it with string replace
 char *replace_str (char *s, char *old, char *replace);
 

@@ -1,0 +1,40 @@
+'\" t
+.\" Copyright 2024 axtlos (axtlos@disroot.org)
+.\"
+.\" SPDX-License-Identifier: BSD-3-Clause
+
+.TH trim 3 2024-07-14 "extlib"
+.SH NAME
+trim \- trim leading/trailing whitespace from a string
+.SH LIBRARY
+extlib extended standard library
+.RI ( libextlib ", " \-lextlib )
+.SH SYNOPSIS
+.nf
+.B #include <extlib.h>
+.P
+.BI "char *trim (char *s, int *rem_front, int *rem_back);"
+.P
+.fi
+.SH DESCRIPTION
+The
+.BR trim ()
+function removes leading/trailing newspace from
+.IR *s .
+If
+.I *rem_front
+is not NULL, it is set to the amount of leading whitespace removed from
+.IR *s .
+If
+.I *rem_back
+is not NULL, it is set to the amount of trailing whitespace removed from string
+.IR *s .
+.BR trim ()
+does not consume
+.Ir *s ,
+it needs to be free'd manually.
+.fi
+.SH RETURN VALUE
+.BR trim ()
+returns the trimmed string.
+.\" SRC END

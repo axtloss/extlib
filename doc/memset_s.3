@@ -1,0 +1,51 @@
+'\" t
+.\" Copyright 2024 axtlos (axtlos@disroot.org)
+.\"
+.\" SPDX-License-Identifier: BSD-3-Clause
+
+.TH memset_s 3 2024-07-14 "extlib"
+.SH NAME
+fcopy \- copy a file
+.SH LIBRARY
+extlib extended standard library
+.RI ( libextlib ", " \-lextlib )
+.SH SYNOPSIS
+.nf
+.B #define __STDC_WANT_LIB_EXT1__ 1
+.P
+.B #include <extlib.h>
+.P
+.BI "errno_t memset_s (void *s, rsize_t max, int c, rsize_t n);"
+.fi
+.SH DESCRIPTION
+The
+.BR memset_s()
+function behaves the same way as
+.BR memset ()
+except that it will not be removed through Dead Store Elimination,
+which makes it useful when sensitive data needs to be cleared.
+Unlike
+.BR memset()
+,
+.BR memset_s()
+will also return an error and call the currently registered constraint handler
+if
+.I *s
+is a null pointer,
+.I max
+or
+.I n
+is greater than RSIZE_MAX, or
+.I n
+is greater than max.
+.fi
+.SH RETURN VALUE
+The
+.BR memset_s ()
+returns zero on success, non-zero on error.
+.I *src
+to
+.IR *dst .
+.SH STANDARDS
+.BR memset_s ()
+conforms to ISO/IEC 9899:2011 ("ISO C11") K.3.7.4.1.

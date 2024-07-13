@@ -1,0 +1,32 @@
+'\" t
+.\" Copyright 2024 axtlos (axtlos@disroot.org)
+.\"
+.\" SPDX-License-Identifier: BSD-3-Clause
+
+.TH memvcmp 3 2024-07-14 "extlib"
+.SH NAME
+memvcmp \- compare a memory area to a value
+.SH LIBRARY
+extlib extended standard library
+.RI ( libextlib ", " \-lextlib )
+.SH SYNOPSIS
+.nf
+.B #include <extlib.h>
+.P
+.BI "int memvcmp (void *str, char val, size_t n);"
+.fi
+.SH DESCRIPTION
+The
+.BR memcvmp ()
+function compares
+.I n
+bytes of
+.I *str
+to the value
+.I val
+.
+.fi
+.SH RETURN VALUE
+.BR memvcmp ()
+returns zero if the area matches, non-zero if it does not.
+.\" SRC END

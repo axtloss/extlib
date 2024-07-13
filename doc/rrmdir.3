@@ -1,0 +1,33 @@
+'\" t
+.\" Copyright 2024 axtlos (axtlos@disroot.org)
+.\"
+.\" SPDX-License-Identifier: BSD-3-Clause
+
+.TH rrmdir 3 2024-07-14 "extlib"
+.SH NAME
+rrmdir \- recursively remove a directory
+.SH LIBRARY
+extlib extended standard library
+.RI ( libextlib ", " \-lextlib )
+.SH SYNOPSIS
+.nf
+.B #define _XOPEN_SOURCE 500
+.P
+.B #include <extlib.h>
+.P
+.BI "int rrmdir(char *pathname);"
+.fi
+.SH DESCRIPTION
+.BR rrmdir ()
+loops over
+.I *pathname
+using
+.BR nftw ()
+and removes every file and directory found in
+.I *pathname
+.
+.fi
+.SH RETURN VALUE
+.BR rrmdir ()
+return zero on sucess, non-zero on error.
+.\" SRC END

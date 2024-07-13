@@ -1,0 +1,75 @@
+'\" t
+.\" Copyright 2024 axtlos (axtlos@disroot.org)
+.\"
+.\" SPDX-License-Identifier: BSD-3-Clause
+
+.TH fcopy 3 2024-07-13 "extlib"
+.SH NAME
+fcopy \- copy a file
+.SH LIBRARY
+extlib extended standard library
+.RI ( libextlib ", " \-lextlib )
+.SH SYNOPSIS
+.nf
+.B #include <extlib.h>
+.P
+.BI "size_t fcopy(FILE *src, FILE *dst);"
+.fi
+.SH DESCRIPTION
+If
+.I *src
+or
+.I *dst
+is NULL, the
+.BR fcopy ()
+function will return -1 and do nothing else.
+Otherwise, this function copies the contents
+of
+.I *src
+to
+.IR *dst .
+.fi
+.SH RETURN VALUE
+The
+.BR fcopy ()
+function returns the amount of bytes copied from
+.I *src
+to
+.IR *dst .
+.SH EXAMPLES
+The following code will write the text "hello" into
+a memstream, and then copy the contents of that
+file into a second memstream buffer.
+.fi
+\&
+.\" SRC BEGIN (fcopy.c)
+.EX
+#include <stdio.h>
+#include <stdlib.h>
+#include <extlib.h>
+\&
+int
+main(void)
+{
+    char *buf_a, *buf_b;
+    size_t len_a, len_b;
+    FILE *file_buf_a = open_memstream (&buf_a, &len_a);
+    FILE *file_buf_b = open_memstream (&buf_b, &len_b);
+\&
+    fprintf (file_test_a, "hello");
+    fflush (file_test_a);
+    fclose (file_test_a);
+    file_test_a = fmemopen(buf_a, len_a, "r");
+\&
+    fcopy (file_test_a, file_test_b);
+    fclose (file_test_b);
+\&
+    puts (buf_a);
+    puts (buf_b);
+    free (buf_a);
+    free (buf_b);
+\&
+    exit(EXIT_SUCCESS);
+}
+.EE
+.\" SRC END
