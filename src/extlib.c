@@ -27,7 +27,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <time.h>
 
 #undef free
 #undef malloc
@@ -67,13 +66,13 @@ fcopy (FILE *src, FILE *dst)
   if (src == NULL || dst == NULL)
     return -1;
 
-  while ((n = fread (buffer, sizeof (char), sizeof (buffer), f1)) > 0)
+  while ((n = fread (buffer, sizeof (char), sizeof (buffer), src)) > 0)
   {
-    if (fwrite (buffer, sizeof (char), n, f2) != n) {
+    if (fwrite (buffer, sizeof (char), n, dst) != n) {
       fprintf (stderr, "Failed to copy data");
       return -1;
     }
-    fflush (f2);
+    fflush (dst);
     copied += n;
   }
   return copied;

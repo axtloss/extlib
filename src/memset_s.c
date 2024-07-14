@@ -6,10 +6,10 @@
 #include "extlib.h"
 #include <errno.h>
 
-
 errno_t
 memset_s(void *s, rsize_t smax, int c, rsize_t n)
 {
+  puts ("memset");
   volatile unsigned char *dest = (unsigned char *) s;
   errno_t ret = EINVAL;
   rsize_t limit = n < smax ? n : smax;

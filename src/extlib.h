@@ -19,7 +19,9 @@ void *malloc_secure (size_t len);
 #endif
 
 #if (__STDC_WANT_LIB_EXT1__ == 1)
+#ifndef RSIZE_MAX
 #define RSIZE_MAX SIZE_MAX
+#endif
 typedef int errno_t;
 typedef size_t rsize_t;
 
@@ -60,5 +62,5 @@ char *strupr(char *s);
 char *trim (char *s, int *rem_front, int *rem_back);
 
 /// Match string s for old and replace it with string replace
-char *replace_str (char *s, char *old, char *replace);
+ char *replace_str (char *s, char *old, char *replace);
 
