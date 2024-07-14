@@ -85,7 +85,8 @@ rmfile(const char *fpath,
        struct FTW *ftwbuf)
 {
   int err = remove (fpath);
-  if (err < 0) return err;
+  if (err < 0)
+    return err;
   return 0;
 }
 
@@ -93,6 +94,7 @@ int
 rrmdir(char *pathname)
 {
   int err = nftw (pathname, rmfile, 10, FTW_DEPTH|FTW_MOUNT|FTW_PHYS);
-  if (err < 0) return err;
+  if (err < 0)
+    return err;
   return 0;
 }
