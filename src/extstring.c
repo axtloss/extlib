@@ -11,14 +11,14 @@
 char *
 strlwr (char *s)
 {
-  unsigned char *p = (unsigned char *) s;
+	unsigned char *p = (unsigned char *) s;
 
-  while (*p) {
-     *p = tolower ((unsigned char)*p);
-      p++;
-  }
+	while (*p) {
+		*p = tolower ((unsigned char)*p);
+		p++;
+	}
 
-  return s;
+	return s;
 }
 
 char *
@@ -27,8 +27,8 @@ strupr (char *s)
   unsigned char *p = (unsigned char *) s;
 
   while (*p) {
-     *p = toupper ((unsigned char)*p);
-      p++;
+		*p = toupper ((unsigned char)*p);
+		p++;
   }
 
   return s;
@@ -62,8 +62,8 @@ trim (char *s, int *rem_front, int *rem_back)
 
 char *
 replace_str (char *s,
-	    char *old,
-	    char *replace)
+						 char *old,
+						 char *replace)
 {
   char* result;
   int i, cnt = 0;
@@ -93,3 +93,20 @@ replace_str (char *s,
   result[i] = '\0';
   return result;
 };
+
+char *
+join_str (char **s, size_t len, char delim)
+{
+	char *ret = strdup (s[0]);
+	size_t ret_len = sizeof (char) * len + strlen (ret);
+
+	for (int i = 1; i < len; i++) {
+		char *ret_tmp = realloc (ret, ret_len + strlen (s[i]) + 1);
+		ret_len += strlen (s[i]) + 1;
+		if (ret_tmp != NULL)
+			ret = ret_tmp;
+		sprintf (ret, "%s%c%s", ret, delim, s[i]);
+	}
+
+	return ret;
+}
