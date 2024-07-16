@@ -25,7 +25,8 @@ void *malloc_secure (size_t len);
 typedef int errno_t;
 typedef size_t rsize_t;
 
-typedef void (*constraint_handler_t) (const char *__restrict, void *__restrict, errno_t);
+typedef void (*constraint_handler_t) (const char *__restrict,
+                                      void *__restrict, errno_t);
 /// Copy the value of c (converted to an unsigned char) into each of the first n
 /// characters of the object pointed to by s.
 /// Conforms to ISO/IEC 9899:2011 K.3.7.4.1
@@ -33,19 +34,19 @@ errno_t memset_s (void *s, rsize_t max, int c, rsize_t n);
 
 constraint_handler_t set_constraint_handler_s (constraint_handler_t handler);
 void throw_constraint_handler_s (const char *restrict msg, errno_t error);
-_Noreturn void abort_handler_s (const char * __restrict, void * __restrict,
-				errno_t);
+_Noreturn void abort_handler_s (const char *__restrict, void *__restrict,
+                                errno_t);
 void ignore_handler_s (const char *__restrict, void *__restrict, errno_t);
 #endif
 
 
 /// Copy the data of one filestream to another
 /// Returns the amount of bytes copied.
-size_t fcopy(FILE *src, FILE *dst);
+size_t fcopy (FILE * src, FILE * dst);
 
 #if (_XOPEN_SOURCE == 500)
 /// Recursively remove a directory pathname.
-int rrmdir(char *pathname);
+int rrmdir (char *pathname);
 #endif
 
 /// Compare the first n bytes of a memory area str to the value val.
@@ -53,10 +54,10 @@ int rrmdir(char *pathname);
 int memvcmp (void *str, char val, size_t n);
 
 /// Convert a string to lowercase
-char *strlwr(char *s);
+char *strlwr (char *s);
 
 /// Convert a string to uppercase
-char *strupr(char *s);
+char *strupr (char *s);
 
 /// Trim spaces from a string
 char *trim (char *s, int *rem_front, int *rem_back);
