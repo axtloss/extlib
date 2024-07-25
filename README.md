@@ -2,6 +2,8 @@
 Personal library with some handy utilities
 
 ## building
+Honestly, include this either as a git submodule or just the entire code tree (respect the license!!), and build it as part of your project instead of using it as a shared object, it makes things so much easier.
+
 ```
 make
 make extlib.pc
