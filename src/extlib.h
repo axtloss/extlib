@@ -67,3 +67,12 @@ char *replace_str (char *s, char *old, char *replace);
 
 /// Join an array of strings into one string
 char *join_str (char **s, size_t len, char delim);
+
+/// Limit a value to a maximum
+float max (float v, float max_v);
+
+/// Limit a value to a minimum
+float min (float v, float min_v);
+
+/// Limit a value between min and max
+float cap (float v, float min_v, float max_v);

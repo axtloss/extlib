@@ -1,0 +1,60 @@
+'\" t
+.\" Copyright 2024 axtlos (axtlos@disroot.org)
+.\"
+.\" SPDX-License-Identifier: BSD-3-Clause
+
+.TH cap 3 2024-09-23 "extlib"
+.SH NAME
+cap, min, max \- limit a float between a min/max value
+.SH LIBRARY
+extlib extended standard library
+.RI ( libextlib ", " \-lextlib )
+.SH SYNOPSIS
+.nf
+.B #include <extlib.h>
+.P
+.BI "float min (float v, float min_v);"
+.P
+.BI "float max (float v, float max_v);"
+.P
+.BI "float cap (float v, float min_v, float max_v);"
+.P
+.fi
+.SH DESCRIPTION
+The
+.BR min ()
+function limits
+.I v
+to a given minimum value
+.IR min_v .
+The
+.BR max ()
+function limits
+.I v
+to a given maximum value
+.IR max_v .
+The
+.BR cap ()
+function limits
+.I v
+between a given minimum value
+.I min_v
+and a maximum value
+.IR max_v .
+.fi
+.SH RETURN VALUE
+.BR max ()
+and
+.BR min ()
+return the passed value
+.I v
+if it is in above/below the given maximum/minimum. Otherwise the maximum/minimum is returned.
+.BR cap ()
+returns the given value
+.I v
+if it is between the given maximum and minimum.
+Otherwise the maximum is returned if the value is above the maximum
+.IR max_v ,
+the minimum is returned if the value is below the minimum
+.IR min_v .
+.\" SRC END

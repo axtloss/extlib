@@ -7,6 +7,38 @@
 #include "../src/extlib.h"
 
 int
+test_min_max_cap ()
+{
+  int val = 5;
+  int max_v = 10;
+  int min_v = 1;
+  if (cap(val, min_v, max_v) != 5)
+    return 1;
+  if (max(val, max_v) != 5)
+    return 2;
+  if (min(val, min_v) != 5)
+    return 3;
+
+  val = 11;
+  if (cap(val, min_v, max_v) != 10)
+    return 4;
+  if (max(val, max_v) != 10)
+    return 5;
+  if (min(val, min_v) != 11)
+    return 6;
+
+  val = 0;
+  if (cap(val, min_v, max_v) != 1)
+    return 7;
+  if (max(val, max_v) != 0)
+    return 8;
+  if (min(val, min_v) != 1)
+    return 9;
+
+  return 0;
+}
+
+int
 test_malloc_free_secure (size_t size)
 {
     char *mall_test = malloc_secure (size);
@@ -178,5 +210,12 @@ main (void)
         printf ("Test Case 6: test_join_str -- SUCCESS\n\n");
     else
         printf ("Test Case 6: test_join_str -- FAILED %d\n\n", test_6_result);
+
+    printf ("Test Case 7: test_min_max_cap\n");
+    int test_7_result = test_min_max_cap ();
+    if (test_7_result == 0)
+      printf ("Test Case 7: test_min_max_cap -- SUCCESS\n\n");
+    else
+      printf ("Test Case 7: test_min_max_cap -- FAILED %d\n\n", test_7_result);
     return 0;
 }

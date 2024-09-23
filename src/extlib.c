@@ -96,3 +96,21 @@ rrmdir (char *pathname)
         return err;
     return 0;
 }
+
+inline float
+min (float v, float min_v)
+{
+  return (v < min_v) ? min_v : v;
+}
+
+inline float
+max (float v, float max_v)
+{
+  return (v > max_v) ? max_v : v;
+}
+
+inline float
+cap (float v, float min_v, float max_v)
+{
+  return min(max(v, max_v), min_v);
+}
