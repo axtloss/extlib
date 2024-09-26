@@ -13,8 +13,8 @@ memset_s (void *s, rsize_t smax, int c, rsize_t n)
     errno_t ret = EINVAL;
     rsize_t limit = n < smax ? n : smax;
 
-    if (!s)
-        throw_constraint_handler_s ("memset_s: s = NULL", ret);
+    if (s == NULL)
+        throw_constraint_handler_s ("memset_s: s == NULL", ret);
     else if (n > RSIZE_MAX)
         throw_constraint_handler_s ("memset_s: n > RSIZE_MAX", ret);
     else if (smax > RSIZE_MAX)

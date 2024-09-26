@@ -83,7 +83,7 @@ replace_str (char *s, char *old, char *replace)
         }
     }
 
-    result = (char *) malloc_secure (i + cnt * (new_size - old_size) + 1);
+    result = (char *) malloc (i + cnt * (new_size - old_size) + 1);
 
     i = 0;
     while (*s)

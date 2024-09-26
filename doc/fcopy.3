@@ -56,13 +56,13 @@ main(void)
     FILE *file_buf_a = open_memstream (&buf_a, &len_a);
     FILE *file_buf_b = open_memstream (&buf_b, &len_b);
 \&
-    fprintf (file_test_a, "hello");
-    fflush (file_test_a);
-    fclose (file_test_a);
-    file_test_a = fmemopen(buf_a, len_a, "r");
+    fprintf (file_buf_a, "hello");
+    fflush (file_buf_a);
+    fclose (file_buf_a);
+    file_buf_a = fmemopen(buf_a, len_a, "r");
 \&
-    fcopy (file_test_a, file_test_b);
-    fclose (file_test_b);
+    fcopy (file_buf_a, file_buf_b);
+    fclose (file_buf_b);
 \&
     puts (buf_a);
     puts (buf_b);

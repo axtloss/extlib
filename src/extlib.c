@@ -30,7 +30,6 @@
 #include <string.h>
 
 #undef free
-#undef malloc
 
 void
 free_secure (void **__ptr, size_t ptrlen)
