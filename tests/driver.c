@@ -21,7 +21,7 @@ test_runner (struct test_t *test, int n)
   if (test_result == 0)
     printf ("Test Case %d: %s -- %sSUCCESS%s\n\n", n, test->test_name, success, reset);
   else
-    printf ("Test Case %d: %s -- %sFAIL %d%s\n\n", n, test->test_name, test_result, fail, reset);
+    printf ("Test Case %d: %s -- %sFAIL %d%s\n\n", n, test->test_name, fail, test_result, reset);
 }
 
 void

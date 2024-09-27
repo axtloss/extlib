@@ -11,9 +11,9 @@ test_join_str ()
   for (int i = 0; i < 3; i++)
     test_string[i] = strdup ("hello");
 
-  char *joined_string = join_str (test_string, 3, ' ');
+  char *joined_string = join_str (test_string, 3, " && ");
 
-  if (strcmp (joined_string, "hello hello hello") != 0)
+  if (strcmp (joined_string, "hello && hello && hello") != 0)
     errno = 1;
 
   free_secure ((void **) &test_string[0], strlen (test_string[0]));

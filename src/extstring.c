@@ -103,18 +103,21 @@ replace_str (char *s, char *old, char *replace)
 };
 
 char *
-join_str (char **s, size_t len, char delim)
+join_str (char **s, size_t len, char *delim)
 {
     char *ret = strdup (s[0]);
-    size_t ret_len = sizeof (char) * len + strlen (ret);
+    size_t ret_len = strlen (delim) * len + strlen (ret) + 1;
+    size_t old_ret_len = ret_len;
 
     for (int i = 1; i < len; i++)
     {
-        char *ret_tmp = realloc (ret, ret_len + strlen (s[i]) + 1);
-        ret_len += strlen (s[i]) + 1;
-        if (ret_tmp != NULL)
-            ret = ret_tmp;
-        sprintf (ret, "%s%c%s", ret, delim, s[i]);
+      char *ret_tmp = malloc (ret_len + strlen (s[i])); // i should use realloc here but that breaks on musl so malloc it is :3
+      ret_len += strlen (s[i]) + 1;
+      if (ret_tmp != NULL) {
+	sprintf (ret_tmp, "%s%s%s", ret, delim, s[i]);
+	free_secure ((void **) &ret, strlen (ret));
+	ret = ret_tmp;
+      }
     }
 
     return ret;

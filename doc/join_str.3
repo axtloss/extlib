@@ -1,0 +1,35 @@
+'\" t
+.\" Copyright 2024 axtlos (axtlos@disroot.org)
+.\"
+.\" SPDX-License-Identifier: BSD-3-Clause
+
+.TH trim 3 2024-09-27 "extlib"
+.SH NAME
+join_str \- join an array of strings seperated by a given delimiter
+.SH LIBRARY
+extlib extended standard library
+.RI ( libextlib ", " \-lextlib )
+.SH SYNOPSIS
+.nf
+.B #include <extlib.h>
+.P
+.BI "char *join_str (char **s, size_t len, char *delim);"
+.P
+.fi
+.SH DESCRIPTION
+The
+.BR join_str ()
+function joins the first
+.I len
+elements of
+.I **s
+into one string where each element of the array is seperated by
+.IR *delim .
+.fi
+.SH RETURN VALUE
+.BR join_str ()
+returns the joined string.
+.SH AUTHORS
+This manual page was written by Rose
+.IR <axtlos@disroot.org> .
+.\" SRC END
