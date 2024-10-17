@@ -155,14 +155,11 @@ strfmt (char *s, struct style fmt)
   size_t sqnc_size = strlen ("\e[0m") + strlen (s)+1;
   char *escape_sqnc = strdup ("");
   if (fmt.color > 0) {
-    char *clrbase = malloc (strlen ("\e[38;5;m")+4);
-    sprintf (clrbase, "\e[%d;5;%dm", fmt.background ? 48 : 38, fmt.color);
-    char *tmp_sqnc = malloc (sqnc_size + strlen (clrbase));
-    sqnc_size += strlen (clrbase);
-    sprintf (tmp_sqnc, "%s%s", escape_sqnc, clrbase);
+    char *tmp_sqnc = malloc (sqnc_size + strlen ("\e[38;5;m")+4);
+    sqnc_size += strlen ("\e[38;5;m")+4;
+    sprintf (tmp_sqnc, "%s\e[%d;5;%dm", escape_sqnc, fmt.background ? 48 : 38, fmt.color);
     free (escape_sqnc);
     escape_sqnc = tmp_sqnc;
-    free (clrbase);
   }
 
   if ((fmt.styles & BOLD))
