@@ -7,6 +7,7 @@
 #include "test_replace_str.c"
 #include "test_strlwr_strupr.c"
 #include "test_trim.c"
+#include "test_strfmt.c"
 
 inline void
 tests_entrypoint ()
@@ -19,4 +20,5 @@ tests_entrypoint ()
   register_test (test_replace_str_t ());
   register_test (test_strlwr_strupr_t ());
   register_test (test_trim_t ());
+  register_test (test_strfmt_t ());
 }

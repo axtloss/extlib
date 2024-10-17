@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 #ifdef USE_SECURE_MEM
 #define free(x) error - use free_secure
@@ -76,3 +77,73 @@ float min (float v, float min_v);
 
 /// Limit a value between min and max
 float cap (float v, float min_v, float max_v);
+
+#ifndef STYLESDEF
+/// Original 16 terminal colors
+enum colors16 {
+  BLACK,
+  RED,
+  GREEN,
+  YELLOW,
+  BLUE,
+  MAGENTA,
+  CYAN,
+  WHITE,
+  GRAY,
+  BRIGHTRED,
+  BRIGHTGREEN,
+  BRIGHTYELLOW,
+  BRIGHTBLUE,
+  BRIGHTMAGENTA,
+  BRIGHTCYAN,
+  BRIGHTWHITE
+};
+
+enum grayscale {
+  GRAY1 = 232,
+  GRAY2,
+  GRAY3,
+  GRAY4,
+  GRAY5,
+  GRAY6,
+  GRAY7,
+  GRAY8,
+  GRAY9,
+  GRAY10,
+  GRAY11,
+  GRAY12,
+  GRAY13,
+  GRAY14,
+  GRAY15,
+  GRAY16,
+  GRAY17,
+  GRAY18,
+  GRAY19,
+  GRAY20,
+  GRAY21,
+  GRAY22,
+  GRAY23,
+  GRAY24
+};
+
+enum effects {
+  BOLD = 1,
+  DIM = 2,
+  ITALIC = 4,
+  UNDERLINE = 8,
+  BLINKING = 16,
+  INVERSE = 32,
+  HIDDEN = 64,
+  STRIKETHROUGH = 128
+};
+
+struct style {
+  int color;
+  bool background;
+  int styles;
+};
+#define STYLESDEF
+#endif
+
+/// Format a string with ANSI escape codes
+char *strfmt (char *s, struct style);

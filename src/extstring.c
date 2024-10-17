@@ -8,6 +8,17 @@
 #include <ctype.h>
 #include "extlib.h"
 
+enum gfxnums {
+  num_BOLD = 1,
+  num_DIM,
+  num_ITALIC,
+  num_UNDERLINE,
+  num_BLINKING,
+  num_INVERSE,
+  num_HIDDEN,
+  num_STRIKETHROUGH,
+};
+
 char *
 strlwr (char *s)
 {
@@ -121,4 +132,68 @@ join_str (char **s, size_t len, char *delim)
     }
 
     return ret;
+}
+
+// all freed strings in this function dont contain confidential data
+// so free_secure isnt necessary
+#undef free
+void
+append_gfxsqnc (char **escape_sqnc, size_t *sqnc_size, int gfx_num)
+{
+  size_t gfxbase_len = strlen ("\e[XXm")+1;
+  char *tmp_sqnc = malloc (*sqnc_size + gfxbase_len);
+  *sqnc_size += gfxbase_len;
+  sprintf (tmp_sqnc, "%s\e[%dm", *escape_sqnc, gfx_num);
+  free (*escape_sqnc);
+  *escape_sqnc = tmp_sqnc;
+}
+
+char *
+strfmt (char *s, struct style fmt)
+{
+  size_t gfxbase_len = strlen ("\e[XXm")+1;
+  size_t sqnc_size = strlen ("\e[0m") + strlen (s)+1;
+  char *escape_sqnc = strdup ("");
+  if (fmt.color > 0) {
+    char *clrbase = malloc (strlen ("\e[38;5;m")+4);
+    sprintf (clrbase, "\e[%d;5;%dm", fmt.background ? 48 : 38, fmt.color);
+    char *tmp_sqnc = malloc (sqnc_size + strlen (clrbase));
+    sqnc_size += strlen (clrbase);
+    sprintf (tmp_sqnc, "%s%s", escape_sqnc, clrbase);
+    free (escape_sqnc);
+    escape_sqnc = tmp_sqnc;
+    free (clrbase);
+  }
+
+  if ((fmt.styles & BOLD))
+    append_gfxsqnc (&escape_sqnc, &sqnc_size, num_BOLD);
+
+  if ((fmt.styles & DIM))
+    append_gfxsqnc (&escape_sqnc, &sqnc_size, num_DIM);
+
+  if ((fmt.styles & ITALIC))
+    append_gfxsqnc (&escape_sqnc, &sqnc_size, num_ITALIC);
+
+  if ((fmt.styles & UNDERLINE))
+    append_gfxsqnc (&escape_sqnc, &sqnc_size, num_UNDERLINE);
+
+  if ((fmt.styles & BLINKING))
+    append_gfxsqnc (&escape_sqnc, &sqnc_size, num_BLINKING);
+
+  if ((fmt.styles & INVERSE))
+    append_gfxsqnc (&escape_sqnc, &sqnc_size, num_INVERSE);
+  
+  if ((fmt.styles & HIDDEN))
+    append_gfxsqnc (&escape_sqnc, &sqnc_size, num_HIDDEN);
+
+  if ((fmt.styles & STRIKETHROUGH))
+    append_gfxsqnc (&escape_sqnc, &sqnc_size, num_STRIKETHROUGH);
+
+  if (strlen (escape_sqnc) <= 2) {
+    free (escape_sqnc);
+    return strdup (s);
+  }
+  
+  sprintf (escape_sqnc, "%s%s\e[0m", escape_sqnc, s);  
+  return escape_sqnc;
 }

@@ -1,0 +1,86 @@
+'\" t
+.\" Copyright 2024 axtlos (axtlos@disroot.org)
+.\"
+.\" SPDX-License-Identifier: BSD-3-Clause
+
+.TH strfmt 3 2024-10-17 "extlib"
+.SH NAME
+strfmt \- style a string through ansi escape codes
+.SH LIBRARY
+extlib extended standard library
+.RI ( libextlib ", " \-lextlib )
+.SH SYNOPSIS
+.nf
+.B #include <extlib.h>
+.P
+.BI "char *strfmt (char *s, struct style fmt);"
+.P
+.BI "struct style { int color, boolean background, int styles }"
+.P
+.fi
+.SH DESCRIPTION
+The
+.BR strfmt ()
+function wraps
+.I *s
+in ANSI escape codes according to the style given in
+.IR fmt .
+Extlib contains convenience enums for the basic 16 colours
+and the greyscale colours 232-255. But any number in the 1-255 range can be supplied.
+The greyscale colours assume 256 colour support from the terminal, and may not work on every platform.
+.fi
+.SH RETURN VALUE
+.BR strfmt ()
+returns a copy of the string
+.I *s
+wrapped in ANSI escape codes.
+If
+.I fmt
+does not define any style (i.e
+.BI "(struct style) { 0, false, 0 }"
+), a copy of
+.I *s
+is returned.
+.SH EXAMPLES
+The following code will write the text "meow" in different styles.
+.\" SRC BEGIN (strfmt.c)
+.EX
+#include <stdlib.h>
+#include <stdio.h>
+#include <extlib.h>
+#include <stdbool.h>
+\&
+int
+main (void)
+{
+    // Red text, with no extra styles
+    char *red_text = strfmt ("meow", (struct style) { RED, false, 0 });
+    puts (red_text);
+    free (red_text);
+\&
+    // Blue, bold and italic text
+    char *blue_bi_text = strfmt ("meow", (struct style) { RED, false, BOLD|ITALIC });
+    puts (blue_bi_text);
+    free (blue_bi_text);
+\&
+    // Regular text on a magenta background
+    char *magenta_bg_text = strfmt ("meow", (struct style) { MAGENTA, true, 0 });
+    puts (magenta_bg_text);
+    free (magenta_bg_text);
+\&
+    // Gray, bold, italic, underlined, blinking, strikethrough text
+    char *gray_text = strfmt ("meow", (struct style) { GRAY23, false, BOLD|ITALIC|UNDERLINE|BLINKING });
+    puts (gray_text);
+    free (gray_text);
+\&
+    // Regular text, with no color or style
+    char *text = strfmt ("meow", (struct style) { 0, false, 0 });
+    puts (text);
+    free (text);
+\&
+    exit (EXIT_SUCCESS);
+}
+.SH AUTHORS
+This manual page was written by Rose
+.IR <axtlos@disroot.org> .
+.\" SRC END
