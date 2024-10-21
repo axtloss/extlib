@@ -134,6 +134,16 @@ join_str (char **s, size_t len, char *delim)
     return ret;
 }
 
+
+__attribute__((nonnull))
+char *
+concat_str (char *str1, char *str2)
+{
+  char* res = malloc (strlen (str1) + strlen (str2)+1);
+  snprintf (res, strlen (str1) + strlen (str2)+1, "%s%s", str1, str2);
+  return res;
+}
+
 // all freed strings in this function dont contain confidential data
 // so free_secure isnt necessary
 #undef free

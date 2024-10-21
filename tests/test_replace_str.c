@@ -23,4 +23,5 @@ test_replace_str_t ()
   test->test_func = test_replace_str;
   test->test_name = "test_replace_str";
   test->test_desc = "replace_str";
+  return test;
 }

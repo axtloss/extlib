@@ -69,6 +69,9 @@ char *replace_str (char *s, char *old, char *replace);
 /// Join an array of strings into one string
 char *join_str (char **s, size_t len, char *delim);
 
+/// Concatenate two strings into a new string
+char *concat_str (char *str1, char *str2);
+
 /// Limit a value to a maximum
 float max (float v, float max_v);
 

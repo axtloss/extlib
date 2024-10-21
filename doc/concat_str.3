@@ -1,0 +1,52 @@
+'\" t
+.\" Copyright 2024 axtlos (axtlos@disroot.org)
+.\"
+.\" SPDX-License-Identifier: BSD-3-Clause
+
+.TH concat_str 3 2024-10-21 "extlib"
+.SH NAME
+concat_str \- concatenate two strings into one
+.SH LIBRARY
+extlib extended standard library
+.RI ( libextlib ", " \-lextlib )
+.SH SYNOPSIS
+.nf
+.B #include <extlib.h>
+.P
+.BI "char* concat_str (char *s);"
+.P
+.fi
+.SH DESCRIPTION
+The
+.BR concat_str ()
+function concatenates
+.I *str1
+and
+.I *str2
+into a new char*.
+.BR concat_str ()
+differs from
+.BR strcat ()
+in that
+.BR concat_str ()
+allocates a new char* in which
+.I *str1
+and
+.I *str2
+are copied, meaning that the user does not have to allocate a char* themselves.
+.I *str1
+and
+.I *str2
+are not consumed and will have to be free'd by the user when not needed anymore.
+.fi
+.SH RETURN VALUE
+.BR concat_str ()
+returns a new string that contains a copy of
+.I *str1
+and
+.IR *str2
+which has to be free'd by the user when not needed anymore.
+.SH AUTHORS
+This manual page was written by Rose
+.IR <axtlos@disroot.org> .
+.\" SRC END

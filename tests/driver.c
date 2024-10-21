@@ -12,7 +12,7 @@ char* fail;
 int tests_count;
 struct test_t** registered_tests;
 
-int
+void
 test_runner (struct test_t *test, int n)
 {
   printf ("Test Case %d: %s -- %s\n", n, test->test_name, test->test_desc);

@@ -32,4 +32,5 @@ test_trim_t ()
   test->test_func = test_trim;
   test->test_name = "test_trim";
   test->test_desc = "trim";
+  return test;
 }
